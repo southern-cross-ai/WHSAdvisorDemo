@@ -1,24 +1,27 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export const useWHSNavigation = () => {
-  const [currentScreen, setCurrentScreen] = useState('overview');
+  const [currentScreen, setCurrentScreen] = useState("overview");
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const screens = [
-    'overview',
-    'act-regulations', 
-    'codes-practice',
-    'incident-response',
-    'compensation',
-    'complaints-reporting'
+    "overview",
+    "act-regulations",
+    "codes-practice",
+    "incident-response",
+    "compensation",
+    "complaints-reporting",
   ];
 
   const navigateToScreen = (screenId, delay = 500) => {
     setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentScreen(screenId);
-      setIsTransitioning(false);
-    }, delay);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setCurrentScreen(screenId);
+        setIsTransitioning(false);
+        resolve();
+      }, delay);
+    });
   };
 
   const navigateNext = () => {
@@ -36,7 +39,7 @@ export const useWHSNavigation = () => {
   };
 
   const navigateToOverview = () => {
-    navigateToScreen('overview');
+    navigateToScreen("overview");
   };
 
   return {
@@ -46,6 +49,6 @@ export const useWHSNavigation = () => {
     navigateNext,
     navigatePrevious,
     navigateToOverview,
-    screens
+    screens,
   };
 };
