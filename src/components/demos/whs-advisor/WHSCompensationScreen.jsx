@@ -9,26 +9,27 @@ const WHSCompensationScreen = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [particles, setParticles] = useState([]);
 
-  // Particle animation
+// Particle animation
   useEffect(() => {
-    const initialParticles = Array.from({ length: 12 }, (_, i) => ({
+    const initialParticles = Array.from({ length: 8 }, (_, i) => ({  // CHANGED: reduced from 12 to 8 particles
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-      speed: Math.random() * 0.15 + 0.08,
-      opacity: Math.random() * 0.3 + 0.2,
-      color: Math.random() > 0.5 ? 'cyan' : 'blue'
+      size: Math.random() * 3 + 1,                  // CHANGED: increased max size from 2 to 3
+      speed: Math.random() * 0.1 + 0.05,            // CHANGED: slower speeds
+      opacity: Math.random() * 0.2 + 0.1,           // CHANGED: lower opacity range
+      color: Math.random() > 0.5 ? 'teal' : 'green' // CHANGED: teal/green instead of cyan/blue
     }));
     setParticles(initialParticles);
 
     const interval = setInterval(() => {
-      setParticles(prev => prev.map(particle => ({
-        ...particle,
-        y: particle.y > 105 ? -5 : particle.y + particle.speed,
-        x: particle.x + Math.sin(Date.now() * 0.001 + particle.id) * 0.1
+      setParticles(prev => prev.map(p => ({
+        ...p,
+        y: p.y > 105 ? -5 : p.y + p.speed,
+        x: p.x + Math.sin(Date.now() * 0.001 + p.id) * 0.05 // CHANGED: reduced horizontal movement
       })));
-    }, 50);
+    }, 80);                                         // CHANGED: interval from 50ms to 80ms
+
 
     return () => clearInterval(interval);
   }, []);
