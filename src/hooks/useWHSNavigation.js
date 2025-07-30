@@ -41,6 +41,8 @@ export const useWHSNavigation = () => {
   const navigateToOverview = () => {
     navigateToScreen("overview");
   };
+  const isFirstScreen = screens.indexOf(currentScreen) === 0;
+  const isLastScreen = screens.indexOf(currentScreen) === screens.length - 1;
 
   return {
     currentScreen,
@@ -50,5 +52,7 @@ export const useWHSNavigation = () => {
     navigatePrevious,
     navigateToOverview,
     screens,
+    isFirstScreen,
+    isLastScreen, 
   };
 };
